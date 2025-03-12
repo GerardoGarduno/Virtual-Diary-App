@@ -1,0 +1,236 @@
+.body{
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+nav{
+  overflow: hidden;
+  background: #127C56;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  line-height: 40px;
+}
+nav a{
+  float: left;
+  display: block;
+  width: 120px;
+  color:white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+nav a:hover{
+  background: #0B4C37;
+  color: white;
+}
+nav .container{
+ float: right;
+ align-items: center;
+}
+ .logo{
+  padding-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  object-fit: contain;
+ 
+}
+
+.chooseOption{
+width: 237px;
+height: 40px;
+left: 62px;
+top: 153px;
+
+font-family: 'Work Sans';
+font-style: normal;
+font-weight: 700;
+font-size: 34px;
+line-height: 40px;
+
+text-align: center;
+letter-spacing: -0.02em;
+
+color: #127C56;
+}
+.groupofButton1{
+  margin-top: 1.2in;
+  width: 231px;
+  height: 57px;
+  left: 65px;
+  top: 338px;
+  background: #127C56;
+  border-radius: 15px;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: large;
+  color: #FFFFFF;
+
+}
+.groupofButton2{
+width: 231px;
+height: 57px;
+left: 65px;
+top: 338px;
+margin-top: 30px;
+background: #127C56;
+border-radius: 15px;
+font-family: 'Work Sans';
+font-style: normal;
+font-weight: 700;
+font-size: large;
+color: #FFFFFF;
+}
+.groupofButton2:hover {
+  background: #0c523e; /* change background color on hover */
+  cursor: pointer; /* change cursor on hover to indicate clickable element */
+}
+.groupofButton1:hover {
+  background: #0c523e; /* change background color on hover */
+  cursor: pointer; /* change cursor on hover to indicate clickable element */
+}
+.centerBlock{
+  display: grid;
+  justify-content: center;
+}
+.toolBar{
+    background: #127C56;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    text-align: center;
+    font-size: initial;
+    font-family: 'Work Sans';
+    color:white;
+    font-size:x-large;
+}
+
+.BillsInWallet {
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+  width: 100%;
+  background-color: #127C56;
+  color: white;
+  text-align: center;
+  font-size: x-large;
+  font-family: 'Work Sans';
+  border-collapse: collapse;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.BillsInWallet th, .BillsInWallet td {
+  padding: 10px;
+  border: 1px solid white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.BillsInWallet th {
+  background-color: #0B4C37;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.BillsInWallet tbody tr:nth-child(odd) {
+  background-color: #0E7E5F;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.BillsInWallet tbody tr:nth-child(even) {
+  background-color: #127C56;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+/* .webcam{
+  margin: auto;
+  border-radius:40px;
+  margin-bottom: 15px;
+} */
+
+.webcam {
+  margin: auto;
+  border-radius: 40px;
+  margin-bottom: 15px;
+  width: 100%; /* Make the webcam element fill the available width */
+}
+
+@media (min-width: 768px) {
+  /* Apply different styles for screens wider than 768px */
+  .webcam {
+    max-width: 500px; /* Limit the maximum width of the webcam element */
+  }
+}
+.webstream{
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* .submitButtonEncap{
+  padding-top: 10px;
+  display: grid;
+  justify-content: center;
+} */
+.submit{
+    width: 231px;
+    height: 57px;
+    left: 65px;
+    top: 338px;
+    background: #127C56;
+    border-radius: 15px;
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: large;
+    color: #FFFFFF; 
+}
+.submit:hover {
+  background: #0c523e; /* change background color on hover */
+  cursor: pointer; /* change cursor on hover to indicate clickable element */
+}
+.form{
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+.screenshotLabels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 15px;
+}
+
+.screenshotLabels h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+.groupButtons {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+#file {
+  padding: 15px;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+  margin-right: 20px;
+  min-width: 200px;
+}
+
+ 
+
+
+
