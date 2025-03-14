@@ -2,11 +2,26 @@ import React, { useState, useEffect } from 'react';
 import walletlogo from '../assets/walletlogo.jpeg';
 import {useNavigate , BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./webPages.css";
+import NavBar from '../components/NavBar'; // Adjust the path if necessary
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function WalletPage() {
   const [bills, setBills] = useState([]);
   const [total, setTotal] = useState(null);
+  const [user, setUser] = useState(null); // Add user state if needed
+  const auth = getAuth();
 
+  useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setUser(user);
+        } else {
+          setUser(null);
+        }
+      });
+      return () => unsubscribe();
+    }, [auth]);
+  //fetching the data from the backend
   function getData() {
     fetch('http://localhost:5000/total')
       .then(response => response.json())
@@ -53,11 +68,14 @@ function WalletPage() {
   }
   return (
     <div>
-      <div className="NavBar">
+      {/* <NavBar user={user} setUser={setUser} /> */}
+      {/* <div className="NavBar">
           <ul>
             <li className = "MoneyCounter" ><a onClick={goHome}>MoneyCounter</a></li>
           </ul>
-      </div>
+      </div> */}
+      <NavBar user={user} setUser={setUser} /> {/* Add NavBar here */}
+
       <img src={walletlogo} className="logo" alt="logo" />
       <div className="toolBar">
         <h1>Current Amount in wallet:</h1>

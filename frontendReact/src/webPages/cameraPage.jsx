@@ -1,14 +1,34 @@
-import React, {useState, useCallback, useRef} from 'react';
+import React, {useState, useCallback, useRef,useEffect} from 'react';
 import Webcam from "react-webcam";
 import {useNavigate , BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./webPages.css";
 
+import NavBar from '../components/NavBar'; // Adjust the path if necessary
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 function cameraPage(){
+
+  const [user, setUser] = useState(null); // Add user state if needed
+  const auth = getAuth();
+
   const webcamRef = useRef(null);
   const [image,setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [label, setLabel] = useState('unknown');
   const [confidence, setConfidence] = useState(0);
+
+  //added useEffect to check if user is logged in
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setUser(user);
+        } else {
+          setUser(null);
+        }
+      });
+      return () => unsubscribe();
+    }, [auth]);
+  
   function handleUpload(event) {
       event.preventDefault();
       const formData = new FormData();
@@ -39,7 +59,6 @@ function cameraPage(){
   }
   function sendimagetofolder(event) {
     event.preventDefault();
-
     const formData = new FormData();
     formData.append('image', image);
     fetch('http://localhost:5000/upload_image', {
@@ -81,8 +100,7 @@ function cameraPage(){
     }).catch(error => {
       console.error('Error uploading image:', error);
     });
-  }
-  
+  } 
   const capture = useCallback(() =>{
     console.log("trying to camptr")
     const imageSrc = webcamRef.current.getScreenshot();
@@ -105,6 +123,7 @@ function cameraPage(){
   
   return(
         <div>
+          <NavBar user={user} setUser={setUser} /> {/* Add NavBar here */}
           {/* <div className="NavBar">
             <ul>
                 <li className = "MoneyCounter" onClick={goHome} ><a>MoneyCounter</a></li>

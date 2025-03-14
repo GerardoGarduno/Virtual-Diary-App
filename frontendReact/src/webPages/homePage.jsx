@@ -9,7 +9,7 @@ function HomePage() {
   const [user, setUser] = useState(null);
   let navigate = useNavigate();
   const auth = getAuth();
-
+//added useEffect to check if user is logged in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
