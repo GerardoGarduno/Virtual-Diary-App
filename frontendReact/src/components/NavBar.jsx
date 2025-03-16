@@ -6,7 +6,6 @@ import './NavBar.css';
 function NavBar({ user, setUser }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [feedback, setFeedback] = useState('');
   let navigate = useNavigate();
   const auth = getAuth();
 
@@ -47,12 +46,13 @@ function NavBar({ user, setUser }) {
         {user ? (
           <div className='container'>
             <a className="UserEmail">Logged in as: {user.email}</a>
-            <a className="SignOutButton"><button onClick={handleSignOut}>Sign Out</button></a>
+            <a><button className="SignOutButton" onClick={handleSignOut}>Sign Out</button></a>
           </div>
         ) : (
           <div className='container'>
             <form onSubmit={handleSignIn}>
               <input
+                className='UserEmail'
                 type="email"
                 placeholder="Email"
                 value={email}
@@ -60,16 +60,16 @@ function NavBar({ user, setUser }) {
                 required
               />
               <input
+                className='UserEmail'
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <button type="submit">Sign In</button>
+              <button className ="SignInButton"type="submit">Sign In</button>
             </form>
-            {feedback && <p className="feedback">{feedback}</p>}
-            <button onClick={goAuth}>Register</button>
+            <button className = "RegisterButton"onClick={goAuth}>Register</button>
           </div>
         )}
       </nav>

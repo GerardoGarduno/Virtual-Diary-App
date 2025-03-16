@@ -1,119 +1,98 @@
+/* General Reset */
 .navbody {
   margin: 0;
   padding: 0;
-  text-transform: uppercase;
   font-weight: bold;
-  }
-  
-nav{
-  overflow: hidden;
-  background: #127C56;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  line-height: 40px;
-}
-nav a{
-     color: white;
-     text-align: center;
-     padding: 14px 16px;
-  
+  text-transform: uppercase;
+  background-color: #127C56;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-nav .container{
- float: right;
- align-items: center;
+/* NavBar Container */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  flex-wrap: wrap; /* Allows wrapping for smaller screens */
 }
-  .navbody nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+
+/* Brand Logo */
+.navbody .brand {
+  font-weight: 700;
+  font-size: 23px;
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Nav Links Container */
+.navbody .container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Add space between elements */
+}
+
+/* User Email  using this class for password too*/
+.UserEmail {
+  font-weight: 700;
+  font-size: 16px;
+  color: #000000;
+  margin-right: 10px;
+}
+
+/* Buttons */
+.SignOutButton,
+.SignInButton,
+.RegisterButton {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.SignOutButton:hover,
+.SignInButton:hover,
+.RegisterButton:hover {
+  background-color: #3e8e41; /* Darker green on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start;
+    padding: 10px;
   }
-  
-  .navbody .brand {
-    font-weight: 700;
-    font-size: 23px;
-    color: #FFFFFF;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
+
   .navbody .container {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Add some space between elements */
+    flex-direction: column; /* Stack buttons and links vertically */
+    align-items: flex-start;
+    gap: 5px; /* Reduce gap for smaller screens */
   }
-  
-  .UserEmail {
-    font-weight: 700;
-    font-size: 16px;
-    color: #FFFFFF;
-    margin-right: 10px;
-  }
-  
+
   .SignOutButton,
   .SignInButton,
   .RegisterButton {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 20px;
+    width: 100%; /* Full width buttons for mobile */
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 0 5px;
-    cursor: pointer;
   }
-/* Auth Page Styles */
-.auth-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding-top: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
-  text-align: center;
-}
 
-.auth-container h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #127C56;
-}
-
-.auth-container form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.auth-container input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 100%;
-}
-
-.auth-container button {
-  padding: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
-  background-color: #127C56;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.auth-container button:hover {
-  background-color: #0b4c37;
-}
-
-.auth-container .feedback {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #d9534f; /* Red for errors */
+  .UserEmail {
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
 }
