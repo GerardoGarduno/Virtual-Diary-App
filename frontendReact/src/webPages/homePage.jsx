@@ -32,6 +32,7 @@ function HomePage() {
   };
 
   return (
+    
     <div className="App">
       <NavBar user={user} setUser={setUser} />
       <div className="centerBlock">

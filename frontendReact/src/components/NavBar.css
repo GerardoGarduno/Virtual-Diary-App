@@ -1,8 +1,27 @@
 .navbody {
-    background-color: #333;
-    padding: 10px 0;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  font-weight: bold;
   }
   
+nav{
+  overflow: hidden;
+  background: #127C56;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  line-height: 40px;
+}
+nav a{
+     color: white;
+     text-align: center;
+     padding: 14px 16px;
+  
+}
+
+nav .container{
+ float: right;
+ align-items: center;
+}
   .navbody nav {
     display: flex;
     justify-content: space-between;
@@ -45,3 +64,56 @@
     margin: 0 5px;
     cursor: pointer;
   }
+/* Auth Page Styles */
+.auth-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.auth-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #127C56;
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-container input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.auth-container button {
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #127C56;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.auth-container button:hover {
+  background-color: #0b4c37;
+}
+
+.auth-container .feedback {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #d9534f; /* Red for errors */
+}

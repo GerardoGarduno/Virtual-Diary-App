@@ -1,103 +1,86 @@
 import React, { useState, useEffect } from 'react';
-import walletlogo from '../assets/walletlogo.jpeg';
-import {useNavigate , BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import "./webPages.css";
-import NavBar from '../components/NavBar'; // Adjust the path if necessary
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref as dbRef, onValue, remove } from "firebase/database";
+import NavBar from '../components/NavBar';
+import './webPages.css';
 
 function WalletPage() {
-  const [bills, setBills] = useState([]);
-  const [total, setTotal] = useState(null);
-  const [user, setUser] = useState(null); // Add user state if needed
+  const [user, setUser] = useState(null);
+  const [images, setImages] = useState([]);
   const auth = getAuth();
 
   useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) {
-          setUser(user);
-        } else {
-          setUser(null);
-        }
-      });
-      return () => unsubscribe();
-    }, [auth]);
-  //fetching the data from the backend
-  function getData() {
-    fetch('http://localhost:5000/total')
-      .then(response => response.json())
-      .then(data => {
-        setTotal(data.total);
-      });
-  
-    fetch('http://localhost:5000/bills')
-      .then(response => response.json())
-      .then(data => {
-        setBills(data.bills);
-      });
-  }
-  //useEffect allows the page to get the Data from reload
-  useEffect(() => {
-    getData();
-  }, []); // empty dependency array ensures this only runs once on mount
+    // Check if the user is logged in
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
 
-  let navigate = useNavigate(); 
-  const goHome = () =>{ 
-    let path = '/'; 
-    navigate(path);
-  }
-  const goCamera= () =>{
-    path = '/cameraPage'
-    navigate(path);
-    
-  }
-  function sortBills(column) {
-    // make a copy of the bills array to avoid modifying the original
-    const sortedBills = [...bills];
-  
-    // sort the bills based on the selected column
-    sortedBills.sort((a, b) => {
-      if (column === 'bill') {
-        return a.label.localeCompare(b.label);
+        // Fetch images from Firebase Realtime Database
+        const db = getDatabase();
+        const userImagesRef = dbRef(db, `users/${user.uid}/images`);
+        onValue(userImagesRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            // Convert the object into an array of images with keys
+            const imagesArray = Object.entries(data).map(([key, value]) => ({
+              id: key, // Include the unique key for deletion
+              ...value,
+            }));
+            setImages(imagesArray);
+          } else {
+            setImages([]); // No images found
+          }
+        });
       } else {
-        return b.confidence - a.confidence;
+        setUser(null);
+        setImages([]);
       }
     });
-  
-    // update the bills state with the sorted array
-    setBills(sortedBills);
-  }
+
+    return () => unsubscribe();
+  }, [auth]);
+
+  const handleDelete = async (imageId) => {
+    if (!user) return;
+
+    try {
+      const db = getDatabase();
+      const imageRef = dbRef(db, `users/${user.uid}/images/${imageId}`);
+      await remove(imageRef); // Remove the image from the database
+      alert("Image deleted successfully!");
+
+      // Update the UI by filtering out the deleted image
+      setImages((prevImages) => prevImages.filter((image) => image.id !== imageId));
+    } catch (error) {
+      console.error("Error deleting image:", error);
+      alert("Failed to delete the image. Please try again.");
+    }
+  };
+
   return (
     <div>
-      {/* <NavBar user={user} setUser={setUser} /> */}
-      {/* <div className="NavBar">
-          <ul>
-            <li className = "MoneyCounter" ><a onClick={goHome}>MoneyCounter</a></li>
-          </ul>
-      </div> */}
-      <NavBar user={user} setUser={setUser} /> {/* Add NavBar here */}
-
-      <img src={walletlogo} className="logo" alt="logo" />
-      <div className="toolBar">
-        <h1>Current Amount in wallet:</h1>
-        <h2>{total} $</h2>
+      <NavBar user={user} setUser={setUser} />
+      <div className="walletPage">
+        <h1>Your Uploaded Images</h1>
+        <div className="imageGrid">
+          {images.length > 0 ? (
+            images.map((image) => (
+              <div key={image.id} className="imageCard">
+                <img src={image.imageData} alt="Uploaded" className="uploadedImage" />
+                <p>{new Date(image.timestamp).toLocaleString()}</p>
+                <button
+                  className="deleteButton"
+                  onClick={() => handleDelete(image.id)}
+                >
+                  Delete
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>No images found. Start uploading!</p>
+          )}
+        </div>
       </div>
-      <table className="BillsInWallet">
-      <thead>
-        <tr>
-          <th>Bill</th>
-          <th onClick={() => sortBills('confidence')}>Confidence</th>
-        </tr>
-      </thead>
-        <tbody>
-          {bills.map((bill, index) => (
-            <tr key={index}>
-              {/* <td>{bill.label}</td> */}
-              <td> {parseInt(bill.label)}</td>
-              <td>{bill.confidence}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   );
 }

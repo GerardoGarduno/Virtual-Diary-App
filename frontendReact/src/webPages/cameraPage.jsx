@@ -1,169 +1,132 @@
-import React, {useState, useCallback, useRef,useEffect} from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Webcam from "react-webcam";
-import {useNavigate , BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import "./webPages.css";
-
-import NavBar from '../components/NavBar'; // Adjust the path if necessary
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { storage } from '../firebase'; // Import Firebase Storage
+import { ref, uploadString, getDownloadURL } from "firebase/storage";
+import { getDatabase, ref as dbRef, set, push } from "firebase/database"; // Import Realtime Database
+import NavBar from '../components/NavBar';
+import './webPages.css';
 
-function cameraPage(){
-
-  const [user, setUser] = useState(null); // Add user state if needed
+function CameraPage() {
+  const [user, setUser] = useState(null);
   const auth = getAuth();
-
   const webcamRef = useRef(null);
-  const [image,setImage] = useState(null);
+  const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const [label, setLabel] = useState('unknown');
-  const [confidence, setConfidence] = useState(0);
 
-  //added useEffect to check if user is logged in
-    useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) {
-          setUser(user);
-        } else {
-          setUser(null);
-        }
-      });
-      return () => unsubscribe();
-    }, [auth]);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, [auth]);
+
+  // const handleUpload = async (event) => {
+  //   event.preventDefault();
+  //   if (!image || !user) {
+  //     alert("No image captured or user not logged in.");
+  //     return;
+  //   }
+
+  //   setUploading(true);
+
+  //   try {
+  //     // Generate a unique filename for the image
+  //     const timestamp = new Date().toISOString();
+  //     const filePath = `users/${user.uid}/images/${timestamp}.jpg`;
+
+  //     // Upload the image to Firebase Storage
+  //     const storageRef = ref(storage, filePath);
+  //     await uploadString(storageRef, image, 'data_url');
+
+  //     // Get the public URL of the uploaded image
+  //     const imageUrl = await getDownloadURL(storageRef);
+
+  //     // Save the image URL to Firebase Realtime Database
+  //     const db = getDatabase(); // Initialize Realtime Database
+  //     const userImagesRef = dbRef(db, `users/${user.uid}/images`);
+  //     const newImageRef = push(userImagesRef); // Create a unique key for the image
+  //     await set(newImageRef, {
+  //       imageUrl,
+  //       timestamp: timestamp,
+  //     });
+
+  //     alert("Upload successful!");
+  //   } catch (error) {
+  //     console.error("Error uploading image: ", error);
+  //     alert("Upload failed. Please try again.");
+  //   } finally {
+  //     setUploading(false);
+  //   }
+  // };
+  const handleUpload = async (event) => {
+    event.preventDefault();
+    if (!image || !user) {
+      alert("No image captured or user not logged in.");
+      return;
+    }
   
-  function handleUpload(event) {
-      event.preventDefault();
-      const formData = new FormData();
-      const fileInput = document.querySelector('#file');
-      if (!fileInput) {
-        console.error('File input element not found');
-        return;
-      }
-      const files = fileInput.files;
-      for (let i = 0; i < files.length; i++) {
-        formData.append('file', files[i]);
-      }
-      setUploading(true);
-      fetch('http://localhost:5000/addToWalletAnalyse', {
-        method: 'POST',
-        body: formData
-      }).then(response => {
-        if (response.ok) {
-          alert('Upload successful');
-          fileInput.value = null; // reset the file input field
-          //block the the upload data button while proccessing data
-          setUploading(false);
-        } else {
-          alert('Upload failed');
-          setUploading(false);
-        }
+    setUploading(true);
+  
+    try {
+      // Save the base64 image directly to Firebase Realtime Database
+      const db = getDatabase(); // Initialize Realtime Database
+      const userImagesRef = dbRef(db, `users/${user.uid}/images`);
+      const newImageRef = push(userImagesRef); // Create a unique key for the image
+      const timestamp = new Date().toISOString();
+  
+      await set(newImageRef, {
+        imageData: image, // Base64-encoded image data
+        timestamp: timestamp,
       });
-  }
-  function sendimagetofolder(event) {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append('image', image);
-    fetch('http://localhost:5000/upload_image', {
-      method: 'POST',
-      body: formData
-    }).then(response => {
-      if (response.ok) {
-        alert('Image was sent to folder');
-      } else {
-        alert('Image upload failed');
-      }
-    }).catch(error => {
-      console.error('Error uploading image:', error);
-    });
-  }
-  function imageRunModel(event) {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append('image', image);
-    fetch('http://localhost:5000/upload_image_model', {
-      method: 'POST',
-      body: formData
-    }).then(response => {
-      if (response.ok) {
-        response.json().then(data => {
-          setLabel('');
-          setConfidence(0);
-          const label = data.prediction.predictions[0].class;
-          const confidence = data.prediction.predictions[0].confidence;
-          speak("I am " + Math.round(confidence * 100) + " percent sure that is a " + label +  " bill.");
-          speak("Please add to folder first then click upload to update virtual balance");
-          setLabel(label);
-          setConfidence(confidence);
-        });
-        alert('Image was sent to model');
-      } else {
-        alert('Image upload failed');
-      }
-    }).catch(error => {
-      console.error('Error uploading image:', error);
-    });
-  } 
-  const capture = useCallback(() =>{
-    console.log("trying to camptr")
-    const imageSrc = webcamRef.current.getScreenshot();
-      setImage(imageSrc);
-      //console.log(imageSrc);
-    },[webcamRef]);
-    let navigate = useNavigate(); 
-  const goHome = () =>{ 
-      let path = '/'; 
-      navigate(path);
-  }
-  const speak = (text) => {
-    const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = .90; // slows down the speech by 50%
-    synth.speak(utterance);
+  
+      alert("Upload successful!");
+    } catch (error) {
+      console.error("Error uploading image: ", error);
+      alert("Upload failed. Please try again.");
+    } finally {
+      setUploading(false);
+    }
   };
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setImage(imageSrc);
+  }, [webcamRef]);
 
-
-  
-  return(
-        <div>
-          <NavBar user={user} setUser={setUser} /> {/* Add NavBar here */}
-          {/* <div className="NavBar">
-            <ul>
-                <li className = "MoneyCounter" onClick={goHome} ><a>MoneyCounter</a></li>
-            </ul>
-          </div> */}
-          {/* <NavBar user={user} setUser={setUser} /> */}
-          <div className= "webstream">
-            {image === null ? (
-              <>
-              <Webcam
-              ref ={webcamRef}
-                className="webcam"
-                audio={false}
-                screenshotFormat="image/jpeg"
+  return (
+    <div>
+      <NavBar user={user} setUser={setUser} />
+      <div className="webstream">
+        {image === null ? (
+          <>
+            <Webcam
+              ref={webcamRef}
+              className="webcam"
+              audio={false}
+              screenshotFormat="image/jpeg"
             />
-          <button className = "submit" onClick={capture}>Capture</button>
+            <button className="submit" onClick={capture}>Capture</button>
           </>
-          ) : (
-          <>  
-            <img className = "webcam" src ={image} alt = "screenshot"/>
-            <div className = 'groupButtons'>
-              <button className='submit' onClick= {imageRunModel}>Run model</button>
-              <button className= "submit" onClick = {sendimagetofolder}>Send to Folder</button>
-              <button className="submit" onClick={() => setImage(null)}>Retake</button>  
+        ) : (
+          <>
+            <img className="webcam" src={image} alt="screenshot" />
+            <div className="groupButtons">
+              <button className="submit" onClick={() => setImage(null)}>Retake</button>
             </div>
-            <div className='screenshotLabels'>
-              <h1>Label: {label}</h1>
-              <h1>Confidence: {confidence}</h1>
-              <h1>Click "Send to Folder" then "Upload" to update balance</h1>          
-            </div>
-          </>  
-          )}
-   
-          </div>
-          <form onSubmit={handleUpload} className = "form">
-                <input id="file" type="file" name="file" multiple />
-                <button className = "submit"  type="submit" disabled={uploading}>Upload</button>
-          </form>  
-  
-        </div>
-    )
+          </>
+        )}
+      </div>
+      <form onSubmit={handleUpload} className="form">
+        <button className="submit" type="submit" disabled={uploading}>
+          {uploading ? "Uploading..." : "Upload"}
+        </button>
+      </form>
+    </div>
+  );
 }
-export default cameraPage;
+
+export default CameraPage;
