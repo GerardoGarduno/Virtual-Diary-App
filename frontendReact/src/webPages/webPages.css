@@ -18,25 +18,22 @@ body, html {
 }
 
 .chooseOption{
-width: 237px;
-height: 40px;
-left: 62px;
-top: 153px;
-
-font-family: 'Work Sans';
-font-style: normal;
-font-weight: 700;
-font-size: 34px;
-line-height: 40px;
-
-text-align: center;
-letter-spacing: -0.02em;
-
-color: #127C56;
+    /* width: 237px; */
+    height: 35px;
+    /* left: 62px; */
+    /* top: 153px; */
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 40px;
+    text-align: center;
+    /* letter-spacing: normal; */
+    color: #127C56;
+    margin-top: 20px;
 }
 .groupofButton1{
   margin-top: 1.2in;
-  width: 231px;
   height: 57px;
   left: 65px;
   top: 338px;
@@ -50,7 +47,6 @@ color: #127C56;
 
 }
 .groupofButton2{
-width: 231px;
 height: 57px;
 left: 65px;
 top: 338px;
@@ -74,6 +70,7 @@ color: #FFFFFF;
 .centerBlock{
   display: grid;
   justify-content: center;
+  padding: 50px;
 }
 .toolBar{
     background: #127C56;
@@ -192,9 +189,10 @@ color: #FFFFFF;
   .webcam {
     max-width: 500px; /* Limit the maximum width of the webcam element */
   }
+
 }
 .webstream{
-  margin-top: 50px;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
