@@ -42,7 +42,7 @@ function NavBar({ user, setUser }) {
   return (
     <div className='navbody'>
       <nav>
-        <a className="brand" onClick={() => navigate('/')}>MoneyCounter</a>
+        <a className="brand" onClick={() => navigate('/')}>Virtual Diary</a>
         {user ? (
           <div className='container'>
             <a className="UserEmail">Logged in as: {user.email}</a>

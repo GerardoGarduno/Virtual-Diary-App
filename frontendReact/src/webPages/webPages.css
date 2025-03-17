@@ -187,7 +187,7 @@ color: #FFFFFF;
 @media (min-width: 768px) {
   /* Apply different styles for screens wider than 768px */
   .webcam {
-    max-width: 500px; /* Limit the maximum width of the webcam element */
+    max-width: 700px; /* Limit the maximum width of the webcam element */
   }
 
 }
@@ -308,6 +308,51 @@ color: #FFFFFF;
 
 .deleteButton:hover {
   background-color: #c9302c; /* Darker red on hover */
+}
+/* Mood Selection */
+.mood-selection {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.mood-selection label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #127C56;
+}
+
+.mood-dropdown {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Note Section */
+.note-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.note-section label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #127C56;
+}
+
+.note-input {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 300px;
+  height: 100px;
+  resize: none;
 }
 
 

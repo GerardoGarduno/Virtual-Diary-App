@@ -41,19 +41,25 @@ function WalletPage() {
   }, [auth]);
 
   const handleDelete = async (imageId) => {
-    if (!user) return;
-
-    try {
-      const db = getDatabase();
-      const imageRef = dbRef(db, `users/${user.uid}/images/${imageId}`);
-      await remove(imageRef); // Remove the image from the database
-      alert("Image deleted successfully!");
-
-      // Update the UI by filtering out the deleted image
-      setImages((prevImages) => prevImages.filter((image) => image.id !== imageId));
-    } catch (error) {
-      console.error("Error deleting image:", error);
-      alert("Failed to delete the image. Please try again.");
+      if (!user) return;
+    
+      // Show a confirmation dialog
+      const confirmDelete = window.confirm("Are you sure you want to delete this entry?");
+      if (!confirmDelete) {
+        return; // Exit if the user cancels
+      }
+    
+      try {
+        const db = getDatabase();
+        const imageRef = dbRef(db, `users/${user.uid}/images/${imageId}`);
+        await remove(imageRef); // Remove the image from the database
+        alert("Image deleted successfully!");
+    
+        // Update the UI by filtering out the deleted image
+        setImages((prevImages) => prevImages.filter((image) => image.id !== imageId));
+      } catch (error) {
+        console.error("Error deleting image:", error);
+        alert("Failed to delete the image. Please try again.");
     }
   };
 
@@ -67,7 +73,9 @@ function WalletPage() {
             images.map((image) => (
               <div key={image.id} className="imageCard">
                 <img src={image.imageData} alt="Uploaded" className="uploadedImage" />
-                <p>{new Date(image.timestamp).toLocaleString()}</p>
+                <p><strong>Uploaded:</strong> {new Date(image.timestamp).toLocaleString()}</p>
+                {image.mood && <p><strong>Mood:</strong> {image.mood}</p>}
+                {image.note && <p><strong>Note:</strong> {image.note}</p>}
                 <button
                   className="deleteButton"
                   onClick={() => handleDelete(image.id)}
