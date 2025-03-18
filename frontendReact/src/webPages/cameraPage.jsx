@@ -28,14 +28,6 @@ function CameraPage() {
     return () => unsubscribe();
   }, [auth]);
 
-  // // Load face-api.js models
-  // useEffect(() => {
-  //   const loadModels = async () => {
-  //     await faceapi.nets.tinyFaceDetector.loadFromUri('/models'); // Load face detection model
-  //     await faceapi.nets.faceExpressionNet.loadFromUri('/models'); // Load emotion detection model
-  //   };
-  //   loadModels();
-  // }, []);
 
   // Capture a screenshot from the webcam
   const capture = useCallback(() => {

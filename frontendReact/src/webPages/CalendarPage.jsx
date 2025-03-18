@@ -12,6 +12,7 @@ function CalendarPage() {
   const [selectedDate, setSelectedDate] = useState(new Date()); // Selected date
   const [filteredEntries, setFilteredEntries] = useState([]); // Entries for the selected date
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedEntryId, setSelectedEntryId] = useState(null); // Track the selected entry
   const auth = getAuth();
 
   // Check if the user is logged in
@@ -23,6 +24,8 @@ function CalendarPage() {
       } else {
         setUser(null);
         setEntries([]);
+        setSelectedImage(null); // Clear the selected image when the user logs out
+        setSelectedEntryId(null); // Clear the selected entry ID when the user logs out
       }
     });
     return () => unsubscribe();
@@ -58,45 +61,48 @@ function CalendarPage() {
 
   return (
     <div>
-        <NavBar user={user} setUser={setUser} />
-        <div className="calendarPage">
-            <h1>Diary Calendar</h1>
-            <Calendar
-                onChange={setSelectedDate}
-                value={selectedDate}
-                tileClassName={({ date, view }) => {
-                if (entries.some((entry) => new Date(entry.timestamp).toDateString() === date.toDateString())) {
-                    return 'highlight';
-                }
-                return null;
+      <NavBar user={user} setUser={setUser} />
+      <div className="calendarPage">
+        <h1>Diary Calendar</h1>
+        <Calendar
+          onChange={setSelectedDate}
+          value={selectedDate}
+          tileClassName={({ date, view }) => {
+            if (entries.some((entry) => new Date(entry.timestamp).toDateString() === date.toDateString())) {
+              return 'highlight';
+            }
+            return null;
+          }}
+        />
+        <div className="imagePreview">
+          {selectedImage ? (
+            <img src={selectedImage} alt="Selected Entry" />
+          ) : (
+            <p>Select an entry to preview the image</p>
+          )}
+        </div>
+        <div className="entriesList">
+          <h2>Entries for {selectedDate.toDateString()}</h2>
+          {filteredEntries.length > 0 ? (
+            filteredEntries.map((entry) => (
+              <div
+                key={entry.id}
+                className={`entryCard ${selectedEntryId === entry.id ? 'selectedEntry' : ''}`} // Highlight selected entry
+                onClick={() => {
+                  setSelectedImage(entry.imageData); // Set the selected image
+                  setSelectedEntryId(entry.id); // Track the selected entry
                 }}
-            />
-            <div className="imagePreview">
-                {selectedImage && user ? (
-                <img src={selectedImage} alt="Selected Entry" />
-                ) : (
-                <p>Select an entry to preview the image</p>
-                )}
-            </div>
-            <div className="entriesList">
-                <h2>Entries for {selectedDate.toDateString()}</h2>
-                {filteredEntries.length > 0 ? (
-                filteredEntries.map((entry) => (
-                    <div key={entry.id} className="entryCard"
-                    
-                    onClick={() => setSelectedImage(entry.imageData)} // Set the selected image on click
-
-                    >
-                    <p><strong>Mood:</strong> {entry.mood}</p>
-                    <p><strong>Note:</strong> {entry.note}</p>
-                    <p><strong>Uploaded:</strong> {new Date(entry.timestamp).toLocaleString()}</p>
-                    </div>
-                ))
-                ) : (
-                <p>No entries for this date.</p>
-                )}
-            </div>
-            </div>
+              >
+                <p><strong>Mood:</strong> {entry.mood}</p>
+                <p><strong>Note:</strong> {entry.note}</p>
+                <p><strong>Uploaded:</strong> {new Date(entry.timestamp).toLocaleString()}</p>
+              </div>
+            ))
+          ) : (
+            <p>No entries for this date.</p>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

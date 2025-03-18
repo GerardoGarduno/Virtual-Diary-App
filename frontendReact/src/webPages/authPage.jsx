@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { onAuthStateChanged } from "firebase/auth";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import NavBar from '../components/NavBar'; // Import NavBar component
 import './webPages.css';
@@ -7,8 +10,20 @@ function AuthPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [feedback, setFeedback] = useState('');
+  const [user, setUser] = useState(null);
+  let navigate = useNavigate();
   const auth = getAuth();
-
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        navigate('/'); // Redirect to the home page if the user is logged in
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, [auth]);
   const handleRegister = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
@@ -26,7 +41,7 @@ function AuthPage() {
 
   return (
     <div>
-      <NavBar user={null} setUser={() => {}} /> {/* Add NavBar */}
+      <NavBar user={user} setUser={setUser} />
       <div className="auth-container">
         <h2>Register</h2>
         <form onSubmit={handleRegister}>

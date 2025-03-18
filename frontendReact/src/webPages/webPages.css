@@ -463,3 +463,10 @@ color: #FFFFFF;
   color: white !important;
   border-radius: 50%;
 }
+/* Highlight the selected entry */
+.selectedEntry {
+  background-color: #d4edda; /* Light green background */
+  border: 2px solid #28a745; /* Green border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
+  transition: all 0.3s ease; /* Smooth transition for visual feedback */
+}
