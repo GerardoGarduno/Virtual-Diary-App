@@ -4,6 +4,8 @@ import homePage from './webPages/homePage';
 import walletPage from './webPages/walletPage';
 import cameraPage from './webPages/cameraPage';
 import authPage from './webPages/authPage';
+import CalendarPage from './webPages/CalendarPage';
+
 function App() {
 
   return (
@@ -14,6 +16,7 @@ function App() {
           <Route exact path = '/walletPage' Component= {walletPage}/>
           <Route exact path = '/cameraPage' Component={cameraPage}/>
           <Route exact path='/auth' Component= {authPage} />
+          <Route path="/calendarPage" element={<CalendarPage />} />
         </Routes>
     </Router>
 

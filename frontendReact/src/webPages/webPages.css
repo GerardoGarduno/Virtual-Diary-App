@@ -384,5 +384,80 @@ color: #FFFFFF;
   border: 2px solid #6b007e; /* Gray border */
 }
 
+/* Calendar Page Styles */
+/* Calendar Page Styles */
+.calendarPage {
+  display: grid;
+  grid-template-rows: auto 2fr 1fr; /* Title at the top, calendar in the middle, image below */
+  grid-template-columns: 1fr 2fr; /* Calendar and image on the left, entries on the right */
+  gap: 20px; /* Space between sections */
+  padding: 20px;
+  height: 100vh; /* Full viewport height */
+}
 
+.calendarPage h1 {
+  grid-column: span 2; /* Title spans both columns */
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #127C56;
+  margin-bottom: 20px;
+}
 
+.react-calendar {
+  grid-row: 2; /* Calendar stays in the second row */
+  grid-column: 1; /* Calendar stays in the first column */
+  width: 100%; /* Take up full width of the column */
+  height: 100%; /* Take up full height of the row */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.imagePreview {
+  grid-row: 3; /* Image preview stays in the third row */
+  grid-column: 1; /* Image preview stays in the first column */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Prevent large images from overflowing */
+  height: 100%; /* Take up full height of the row */
+}
+
+.imagePreview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Ensure the image fits within the container */
+}
+
+.entriesList {
+  grid-row: 2 / span 2; /* Entries span the second and third rows */
+  grid-column: 2; /* Entries stay in the second column */
+  overflow-y: auto; /* Add scrolling if entries exceed the height */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+.entryCard {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  text-align: left;
+}
+
+/* Highlight dates with entries */
+.react-calendar__tile.highlight {
+  background-color: #127C56 !important;
+  color: white !important;
+  border-radius: 50%;
+}
