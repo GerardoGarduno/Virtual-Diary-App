@@ -72,7 +72,7 @@ function CalendarPage() {
                 }}
             />
             <div className="imagePreview">
-                {selectedImage ? (
+                {selectedImage && user ? (
                 <img src={selectedImage} alt="Selected Entry" />
                 ) : (
                 <p>Select an entry to preview the image</p>
