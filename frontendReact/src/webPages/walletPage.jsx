@@ -8,7 +8,22 @@ function WalletPage() {
   const [user, setUser] = useState(null);
   const [images, setImages] = useState([]);
   const auth = getAuth();
-
+  const getMoodClass = (mood) => {
+    switch (mood?.toLowerCase()) {
+      case "happy":
+        return "mood-happy";
+      case "sad":
+        return "mood-sad";
+      case "neutral":
+        return "mood-neutral";
+      case "excited":
+        return "mood-excited";
+      case "angry":
+        return "mood-angry";
+      default:
+        return "mood-default"; // Default class if mood is undefined or unrecognized
+    }
+  };
   useEffect(() => {
     // Check if the user is logged in
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -71,7 +86,8 @@ function WalletPage() {
         <div className="imageGrid">
           {images.length > 0 ? (
             images.map((image) => (
-              <div key={image.id} className="imageCard">
+              <div key={image.id} className={`imageCard ${getMoodClass(image.mood)}`}>
+              
                 <img src={image.imageData} alt="Uploaded" className="uploadedImage" />
                 <p><strong>Uploaded:</strong> {new Date(image.timestamp).toLocaleString()}</p>
                 {image.mood && <p><strong>Mood:</strong> {image.mood}</p>}

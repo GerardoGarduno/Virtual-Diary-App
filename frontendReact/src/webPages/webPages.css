@@ -355,5 +355,34 @@ color: #FFFFFF;
   resize: none;
 }
 
+.mood-happy {
+  background-color: #d4edda; /* Light green */
+  border: 2px solid #28a745; /* Green border */
+}
+
+.mood-sad {
+  background-color: #f8d7da; /* Light red */
+  border: 2px solid #dc3545; /* Red border */
+}
+
+.mood-neutral {
+  background-color: #fff3cd; /* Light yellow */
+  border: 2px solid #ffc107; /* Yellow border */
+}
+
+.mood-excited {
+  background-color: #d1ecf1; /* Light blue */
+  border: 2px solid #17a2b8; /* Blue border */
+}
+
+.mood-default {
+  background-color: #f8f9fa; /* Light gray */
+  border: 2px solid #6c757d; /* Gray border */
+}
+.mood-angry {
+  background-color: #d66156; /* Light gray */
+  border: 2px solid #6b007e; /* Gray border */
+}
+
 
 
