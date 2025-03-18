@@ -43,7 +43,7 @@ function HomePage() {
         <div className="chooseOption"><h3>Choose Option</h3></div>
         <button className="groupofButton1" onClick={goCamera}>Camera</button>
         <button className="groupofButton2" onClick={routeChange}>Gallary</button>
-        <button className="groupofButton3" onClick={goCalendar}>Calendar</button>
+        <button className="groupofButton2" onClick={goCalendar}>Calendar</button>
 
       </div>
       <img src={logo} className="logo" alt="logo" />

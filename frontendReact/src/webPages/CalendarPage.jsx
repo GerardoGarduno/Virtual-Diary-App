@@ -83,6 +83,7 @@ function CalendarPage() {
                 {filteredEntries.length > 0 ? (
                 filteredEntries.map((entry) => (
                     <div key={entry.id} className="entryCard"
+                    
                     onClick={() => setSelectedImage(entry.imageData)} // Set the selected image on click
 
                     >

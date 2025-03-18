@@ -386,13 +386,14 @@ color: #FFFFFF;
 
 /* Calendar Page Styles */
 /* Calendar Page Styles */
+
 .calendarPage {
   display: grid;
-  grid-template-rows: auto 2fr 1fr; /* Title at the top, calendar in the middle, image below */
+  grid-template-rows: auto 1fr 1fr; /* Title at the top, calendar in the middle, image below */
   grid-template-columns: 1fr 2fr; /* Calendar and image on the left, entries on the right */
   gap: 20px; /* Space between sections */
   padding: 20px;
-  height: 100vh; /* Full viewport height */
+  height: 90vh; /* Full viewport height */
 }
 
 .calendarPage h1 {
