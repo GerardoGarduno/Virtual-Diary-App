@@ -408,7 +408,7 @@ color: #FFFFFF;
   grid-row: 2;
   grid-column: 1;
   width: 100%; /* Take up full width of the column */
-  height: 100%; /* Take up full height of the row */
+  height: fit-content; /* Take up full height of the row */
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
