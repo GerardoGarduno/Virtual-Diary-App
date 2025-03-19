@@ -354,34 +354,46 @@ color: #FFFFFF;
   height: 100px;
   resize: none;
 }
-
+/* Happy Mood */
 .mood-happy {
   background-color: #d4edda; /* Light green */
   border: 2px solid #28a745; /* Green border */
+  color: #155724; /* Dark green text */
 }
 
+/* Sad Mood */
 .mood-sad {
   background-color: #f8d7da; /* Light red */
-  border: 2px solid #dc3545; /* Red border */
+  border: 2px solid #171515; /* Red border */
+  color: #151414; /* Dark red text */
 }
 
+/* Neutral Mood */
 .mood-neutral {
   background-color: #fff3cd; /* Light yellow */
   border: 2px solid #ffc107; /* Yellow border */
+  color: #856404; /* Dark yellow text */
 }
 
+/* Excited Mood */
 .mood-excited {
   background-color: #d1ecf1; /* Light blue */
   border: 2px solid #17a2b8; /* Blue border */
+  color: #0c5460; /* Dark blue text */
 }
 
+/* Angry Mood */
+.mood-angry {
+  background-color: #f8d7da; /* Light red */
+  border: 2px solid #dc3545; /* Red border */
+  color: #721c24; /* Dark red text */
+}
+
+/* Default Mood (No Data) */
 .mood-default {
   background-color: #f8f9fa; /* Light gray */
   border: 2px solid #6c757d; /* Gray border */
-}
-.mood-angry {
-  background-color: #d66156; /* Light gray */
-  border: 2px solid #6b007e; /* Gray border */
+  color: #6c757d; /* Gray text */
 }
 
 /* Calendar Page Styles */

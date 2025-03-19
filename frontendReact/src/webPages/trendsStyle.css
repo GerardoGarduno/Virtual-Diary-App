@@ -1,0 +1,9 @@
+.trendsPage {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .chartContainer {
+    margin: 20px auto;
+    max-width: 600px;
+  }

@@ -34,6 +34,10 @@ function HomePage() {
     let path = './calendarPage';
     navigate(path);
   };
+  const goTrends = () => {
+    let path = './trendsPage';
+    navigate(path);
+  };
 
   return (
     
@@ -44,6 +48,8 @@ function HomePage() {
         <button className="groupofButton1" onClick={goCamera}>Camera</button>
         <button className="groupofButton2" onClick={routeChange}>Gallary</button>
         <button className="groupofButton2" onClick={goCalendar}>Calendar</button>
+        <button className="groupofButton2" onClick={goTrends}>Trends</button>
+
 
       </div>
       <img src={logo} className="logo" alt="logo" />

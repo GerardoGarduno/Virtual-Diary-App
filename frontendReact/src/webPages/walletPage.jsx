@@ -29,7 +29,6 @@ function WalletPage() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-
         // Fetch images from Firebase Realtime Database
         const db = getDatabase();
         const userImagesRef = dbRef(db, `users/${user.uid}/images`);
