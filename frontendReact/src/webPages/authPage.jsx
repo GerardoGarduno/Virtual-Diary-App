@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { onAuthStateChanged } from "firebase/auth";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged } from "firebase/auth";
 import NavBar from '../components/NavBar'; // Import NavBar component
 import './webPages.css';
 
 function AuthPage() {
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [feedback, setFeedback] = useState('');
   const [user, setUser] = useState(null);
   let navigate = useNavigate();
   const auth = getAuth();
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -23,12 +23,24 @@ function AuthPage() {
       }
     });
     return () => unsubscribe();
-  }, [auth]);
+  }, [auth, navigate]);
+
   const handleRegister = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        setFeedback('User registered successfully!');
+        // Update the user's profile with the username
+        const user = userCredential.user;
+        updateProfile(user, {
+          displayName: username, // Set the username
+        })
+          .then(() => {
+            setFeedback('User registered successfully!');
+            navigate('/'); // Redirect to the home page after successful registration
+          })
+          .catch((error) => {
+            setFeedback(`Error updating profile: ${error.message}`);
+          });
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
@@ -45,6 +57,13 @@ function AuthPage() {
       <div className="auth-container">
         <h2>Register</h2>
         <form onSubmit={handleRegister}>
+          <input
+            type="text"
+            placeholder="Name"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
           <input
             type="email"
             placeholder="Email"

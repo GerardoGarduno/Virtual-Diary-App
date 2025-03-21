@@ -9,7 +9,8 @@ function HomePage() {
   const [user, setUser] = useState(null);
   let navigate = useNavigate();
   const auth = getAuth();
-//added useEffect to check if user is logged in
+
+  // Check if user is logged in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -21,38 +22,59 @@ function HomePage() {
     return () => unsubscribe();
   }, [auth]);
 
-  const routeChange = () => {
-    let path = './walletPage';
-    navigate(path);
-  };
-
-  const goCamera = () => {
-    let path = './cameraPage';
-    navigate(path);
-  };
-  const goCalendar = () => {
-    let path = './calendarPage';
-    navigate(path);
-  };
-  const goTrends = () => {
-    let path = './trendsPage';
+  const goToPage = (path) => {
     navigate(path);
   };
 
   return (
-    
     <div className="App">
       <NavBar user={user} setUser={setUser} />
-      <div className="centerBlock">
-        <div className="chooseOption"><h3>Choose Option</h3></div>
-        <button className="groupofButton1" onClick={goCamera}>Camera</button>
-        <button className="groupofButton2" onClick={routeChange}>Gallary</button>
-        <button className="groupofButton2" onClick={goCalendar}>Calendar</button>
-        <button className="groupofButton2" onClick={goTrends}>Trends</button>
+      <div className="landingPage">
+        {/* Hero Section */}
+        <div className="heroSection">
+          <h1 className="heroTitle">
+            {user ? `Welcome, ${user.displayName || 'User'} to Virtual Diary` : 'Welcome to Virtual Diary'}
+          </h1>
+          <p className="heroDescription">
+            Capture your moments, organize your thoughts, and visualize your memories with Virtual Diary. Your personal space to reflect, plan, and grow.
+          </p>
+          <button className="getStartedButton" onClick={() => goToPage('./calendarPage')}>Get Started</button>
+        </div>
 
+        {/* Features Section */}
+        <div className="featuresSection">
+          <h2>Explore the Features of Virtual Diary</h2>
+          <div className="featuresGrid">
+            <div className="featureCard">
+              <h3>Calendar</h3>
+              <p>View and manage your daily entries with an interactive calendar.</p>
+              <button onClick={() => goToPage('./calendarPage')}>View Calendar</button>
+            </div>
+            <div className="featureCard">
+              <h3>Gallery</h3>
+              <p>Browse through your saved images and notes in one place.</p>
+              <button onClick={() => goToPage('./walletPage')}>Open Gallery</button>
+            </div>
+            <div className="featureCard">
+              <h3>Trends</h3>
+              <p>Analyze your entries and discover patterns in your thoughts and activities.</p>
+              <button onClick={() => goToPage('./trendsPage')}>View Trends</button>
+            </div>
+            <div className="featureCard">
+              <h3>Capture Moments</h3>
+              <p>Use the camera to instantly save images and notes for your diary.</p>
+              <button onClick={() => goToPage('./cameraPage')}>Capture Now</button>
+            </div>
+          </div>
+        </div>
 
+        {/* Call to Action */}
+        <div className="ctaSection">
+          <h2>Start Documenting Your Journey Today</h2>
+          <p>Join countless users who are preserving their memories and organizing their lives with Virtual Diary.</p>
+          <button className="ctaButton" onClick={() => goToPage('./calendarPage')}>Start Now</button>
+        </div>
       </div>
-      <img src={logo} className="logo" alt="logo" />
     </div>
   );
 }

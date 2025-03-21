@@ -6,6 +6,8 @@ import cameraPage from './webPages/cameraPage';
 import authPage from './webPages/authPage';
 import CalendarPage from './webPages/CalendarPage';
 import TrendsPage from './webPages/TrendsPage';
+import ProfilePage from './webPages/ProfilePage';
+
 
 function App() {
 
@@ -19,6 +21,7 @@ function App() {
           <Route exact path='/auth' Component= {authPage} />
           <Route path="/calendarPage" element={<CalendarPage/>} />
           <Route path="/trendsPage" element={<TrendsPage/>} />
+          <Route path="/profile" element={<ProfilePage />} /> {/* New Profile Page */}
 
         </Routes>
     </Router>

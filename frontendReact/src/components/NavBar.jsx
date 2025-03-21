@@ -46,6 +46,7 @@ function NavBar({ user, setUser }) {
         {user ? (
           <div className='container'>
             <a className="UserEmail">Logged in as: {user.email}</a>
+            <a><button className="ProfileButton" onClick={() => navigate('/profile')}>Profile</button></a>
             <a><button className="SignOutButton" onClick={handleSignOut}>Sign Out</button></a>
           </div>
         ) : (

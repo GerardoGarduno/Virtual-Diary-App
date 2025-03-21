@@ -1,0 +1,52 @@
+.profilePage {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .profilePage h1 {
+    margin-bottom: 20px;
+  }
+  
+  .profilePage p {
+    margin: 10px 0;
+  }
+  
+  .updateSection {
+    margin-top: 30px;
+  }
+  
+  .updateSection div {
+    margin-bottom: 15px;
+  }
+  
+  .updateSection input {
+    padding: 10px;
+    font-size: 1rem;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .updateSection button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #46cc5a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .updateSection button:hover {
+    background-color: #3ba94d;
+  }
+  
+  .feedback {
+    margin-top: 20px;
+    color: #ff4500;
+  }
