@@ -4,7 +4,7 @@ import { getDatabase, ref as dbRef, onValue, remove } from "firebase/database";
 import NavBar from '../components/NavBar';
 import './webPages.css';
 
-function WalletPage() {
+function GallaryPage() {
   const [user, setUser] = useState(null);
   const [images, setImages] = useState([]);
   const auth = getAuth();
@@ -108,4 +108,4 @@ function WalletPage() {
   );
 }
 
-export default WalletPage;
+export default GallaryPage;

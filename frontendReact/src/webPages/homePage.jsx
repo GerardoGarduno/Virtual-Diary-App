@@ -38,8 +38,10 @@ function HomePage() {
           <p className="heroDescription">
             Capture your moments, organize your thoughts, and visualize your memories with Virtual Diary. Your personal space to reflect, plan, and grow.
           </p>
-          <button className="getStartedButton" onClick={() => goToPage('./calendarPage')}>Get Started</button>
-        </div>
+          <button className="getStartedButton" onClick={() => goToPage(user ? './cameraPage' : './auth')}>
+            Get Started
+          </button>
+         </div>
 
         {/* Features Section */}
         <div className="featuresSection">
@@ -53,7 +55,7 @@ function HomePage() {
             <div className="featureCard">
               <h3>Gallery</h3>
               <p>Browse through your saved images and notes in one place.</p>
-              <button onClick={() => goToPage('./walletPage')}>Open Gallery</button>
+              <button onClick={() => goToPage('./galleryPage')}>Open Gallery</button>
             </div>
             <div className="featureCard">
               <h3>Trends</h3>
@@ -72,7 +74,6 @@ function HomePage() {
         <div className="ctaSection">
           <h2>Start Documenting Your Journey Today</h2>
           <p>Join countless users who are preserving their memories and organizing their lives with Virtual Diary.</p>
-          <button className="ctaButton" onClick={() => goToPage('./calendarPage')}>Start Now</button>
         </div>
       </div>
     </div>
