@@ -1,45 +1,47 @@
-# MoneyCounter
-Application Identifies money and sum total
+# **Virtual Diary**  
+A modern application to capture, organize, and visualize your moments. Virtual Diary is your personal space to reflect, plan, and grow.
 
-To run the program, follow these steps:
-1) git clone https://github.com/GerardoGarduno/MoneyCounter
-2) cd /MoneyCounter/backend
-3) python is needed to run this program if python is not installed here is link to install python
-  - a)Mac: https://docs.brew.sh/Homebrew-and-Python
-  - b)Windows: https://learn.microsoft.com/en-us/windows/python/beginners 
-4) pip install -r requirements.txt
-6) python3 server.py -> the server will begin to call the roboflow api to begin analysis on the current jpeg images in the 'images' folder inside the backend directory.
-7) open a new terminal and navigate to the front end cd /MoneyCounter/frontendReact
-8) You will need to have node installed first
-  - a)Mac: https://formulae.brew.sh/formula/node
-  - b)Windows: https://nodejs.org/en/download
-10) npm run dev -> press 'o' to open local port 
-11) You should now have two terminal running 1] running the server and 2] running the frontend.
+---
 
+## **Table of Contents**
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Bonus Features](#bonus-features)
+4. [Future Features](#future-features)
+5. [Setup Instructions](#setup-instructions)
+6. [Screenshots](#screenshots)
 
+---
 
+## **Introduction**
+Virtual Diary is a web application designed to help users:
+- **Capture Moments**: Use the camera or upload files to save your memories.
+- **Organize Entries**: Manage your thoughts and memories with an interactive calendar and gallery.
+- **Visualize Trends**: Analyze patterns in your entries to gain insights.
+- **Secure Your Data**: Protect your diary with user authentication.
 
-## **Showing the table before new dollar is added to wallet**
-![first(showing table)](https://github.com/GerardoGarduno/MoneyCounter/assets/48225150/bafd751b-7a17-4591-b3f2-7d843dd70981)
-## **Showing the camera sending image to roboflow api**
-![PART2 AGAIN AGAIN](https://github.com/GerardoGarduno/MoneyCounter/assets/48225150/5d622b35-aba6-42ac-96d1-549afe71af93)
-## **Showing the updated 'wallet' with the new total and new data from the new bill**
-![part3(showing new table](https://github.com/GerardoGarduno/MoneyCounter/assets/48225150/4c315efd-c79b-4cdb-8ab8-731cd074ca7b)
+Whether you're journaling, planning, or reflecting, Virtual Diary is your all-in-one solution.
 
+---
 
+## **Features**
+1. **Interactive Calendar**: View and manage your daily entries with an intuitive calendar interface.
+2. **Gallery View**: Browse through your saved images and notes in one place.
+3. **Trends Analysis**: Discover patterns and insights from your entries.
+4. **Capture Moments**: Use the built-in camera to instantly save images and notes.
+5. **User Authentication**: Secure access to your diary with login and registration functionality.
 
-# **Features:**
-1) Uses machine learning to identify money​
-2) Webcam or File Upload ​
-3) Virtual wallet ​(Without Authentication)​
-4) Use of interactive techniques​
+---
 
-# **Bonus Features:**
-1) Text To speech​
-2) Mobile/Web responsive ​
-3) Sortable data
+## **Bonus Features**
+1. **Mobile/Web Responsive**: Fully responsive design for seamless use on mobile and desktop devices.
+---
 
-# **Future Features:**
-1) need to add authentication
-2) improve the model to be able to detect multiple bills from same images
-3) serial number (avoid repetitions)
+## **Future Features**
+1. **Advanced Analytics**: Provide deeper insights into user trends and patterns.
+2. **Collaborative Diaries**: Allow users to share and collaborate on entries with others.
+3. **Enhanced Security**: Add two-factor authentication for extra protection.
+4. **Offline Mode**: Enable users to access and edit their diary without an internet connection.
+
+---
+
